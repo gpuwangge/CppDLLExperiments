@@ -1,3 +1,13 @@
+
+# Build
+```
+mkdir build  
+cd build
+cmake -G "MinGW Makefiles" ..
+cmake -E time make -j
+```
+
+# Single DLL
 ```
 DllDependencyTest/
 ├── CMakeLists.txt
@@ -14,15 +24,7 @@ DllDependencyTest/
 └── build/
 ```
 
-# Build
-```
-mkdir build  
-cd build
-cmake -G "MinGW Makefiles" ..
-cmake -E time make -j
-```
-
-# Result
+## Result
 ```
 DLL Dependency Test Application
 ===============================
@@ -41,3 +43,5 @@ C interface sum: 30.8
 
 Application finished successfully!
 ```
+
+# Two DLLs
