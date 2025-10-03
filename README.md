@@ -106,6 +106,51 @@ graph TB
     FC1 --> FC3
 ```
 
+```mermaid
+flowchart TD
+    %% 构建时依赖
+    subgraph 构建时依赖
+        direction TB
+        BUILD_APP[应用程序构建]
+        BUILD_CORE[Core DLL构建]
+        BUILD_UTILS[Utils DLL构建]
+        
+        BUILD_APP --> BUILD_CORE
+        BUILD_APP --> BUILD_UTILS
+        BUILD_UTILS --> BUILD_CORE
+    end
+    
+    %% 链接时依赖
+    subgraph 链接时依赖
+        direction TB
+        LINK_APP[应用程序链接]
+        LINK_CORE[链接Core DLL]
+        LINK_UTILS[链接Utils DLL]
+        
+        LINK_APP --> LINK_CORE
+        LINK_APP --> LINK_UTILS
+        LINK_UTILS --> LINK_CORE
+    end
+    
+    %% 运行时依赖
+    subgraph 运行时依赖
+        direction TB
+        RUN_APP[应用程序运行]
+        LOAD_CORE[加载Core DLL]
+        LOAD_UTILS[加载Utils DLL]
+        CALLBACK[回调函数注册]
+        BIDIRECTIONAL[双向函数调用]
+        
+        RUN_APP --> LOAD_CORE
+        RUN_APP --> LOAD_UTILS
+        LOAD_CORE --> CALLBACK
+        LOAD_UTILS --> CALLBACK
+        CALLBACK --> BIDIRECTIONAL
+    end
+    
+    构建时依赖 --> 链接时依赖 --> 运行时依赖
+```
+
 
 ## Result
 ```
