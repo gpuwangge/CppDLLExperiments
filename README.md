@@ -66,6 +66,46 @@ CircularDllDemo/
 │       └── main.cpp
 └── build/
 ```
+```mermaid
+graph TB
+    %% 主应用程序
+    APP[主应用程序<br/>mainapp.exe]
+    
+    %% 两个DLL模块
+    subgraph DLL模块
+        CORE[Core DLL<br/>coredll.dll]
+        UTILS[Utils DLL<br/>utilsdll.dll]
+    end
+    
+    %% 依赖关系
+    APP -->|链接依赖| CORE
+    APP -->|链接依赖| UTILS
+    CORE -.->|运行时回调| UTILS
+    UTILS -->|链接依赖| CORE
+    
+    %% 接口层
+    subgraph 接口层
+        CORE_IF[Core接口库<br/>coredll_interface]
+        UTILS_IF[Utils接口库<br/>utilsdll_interface]
+    end
+    
+    APP --> CORE_IF
+    APP --> UTILS_IF
+    CORE_IF --> CORE
+    UTILS_IF --> CORE_IF
+    UTILS_IF --> UTILS
+    
+    %% 函数调用流
+    subgraph 函数调用流
+        FC1[应用程序设置回调]
+        FC2[Core调用Utils函数]
+        FC3[Utils调用Core函数]
+    end
+    
+    FC1 --> FC2
+    FC1 --> FC3
+```
+
 
 ## Result
 ```
