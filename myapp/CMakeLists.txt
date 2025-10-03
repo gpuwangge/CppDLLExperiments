@@ -8,7 +8,7 @@ file(GLOB SRC_FILES "src/*.cpp")
 add_executable(myapp ${SRC_FILES})
 
 # 链接DLL - 使用接口库来避免不必要的依赖
-#target_link_libraries(myapp PRIVATE mydll_interface mydll)
+target_link_libraries(myapp PRIVATE mydll_interface mydll)
 
 # 设置调试后缀以便区分
 set_target_properties(myapp PROPERTIES
