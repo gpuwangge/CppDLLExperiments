@@ -7,6 +7,138 @@ cmake -G "MinGW Makefiles" ..
 cmake -E time make -j
 ```
 
+# Interface DLL
+```
+MyApp/
+├── CMakeLists.txt
+├── app/
+│   ├── CMakeLists.txt
+│   └── main.cpp
+├── interface/
+│   ├── CMakeLists.txt
+│   ├── imodule_a.h
+│   ├── imodule_b.h
+│   └── factory.h
+├── module_a/
+│   ├── CMakeLists.txt
+│   ├── module_a.h
+│   ├── module_a_impl.h
+│   └── module_a.cpp
+└── module_b/
+    ├── CMakeLists.txt
+    ├── module_b.h
+    ├── module_b_impl.h
+    └── module_b.cpp
+```
+
+## 关系图
+```mermaid
+graph TB
+    %% 主应用程序
+    App[主应用程序<br/>MyApp.exe]
+    
+    %% 接口层
+    Interface[接口层<br/>interface.h]
+    
+    %% 模块A
+    ModuleA[模块A<br/>module_a.dll]
+    ModuleA_H[module_a.h]
+    ModuleA_Impl[ModuleAImpl]
+    ModuleA_CPP[module_a.cpp]
+    
+    %% 模块B
+    ModuleB[模块B<br/>module_b.dll]
+    ModuleB_H[module_b.h]
+    ModuleB_Impl[ModuleBImpl]
+    ModuleB_CPP[module_b.cpp]
+    
+    %% 接口定义
+    IModuleA[IModuleA接口]
+    IModuleB[IModuleB接口]
+    
+    %% 编译时依赖关系
+    App --> Interface
+    ModuleA --> Interface
+    ModuleB --> Interface
+    
+    %% 模块内部结构
+    ModuleA --> ModuleA_H
+    ModuleA --> ModuleA_CPP
+    ModuleA_H --> IModuleA
+    ModuleA_CPP --> ModuleA_Impl
+    ModuleA_Impl --> IModuleA
+    
+    ModuleB --> ModuleB_H
+    ModuleB --> ModuleB_CPP
+    ModuleB_H --> IModuleB
+    ModuleB_CPP --> ModuleB_Impl
+    ModuleB_Impl --> IModuleB
+    
+    %% 运行时调用关系
+    App -.->|LoadLibrary| ModuleA
+    App -.->|LoadLibrary| ModuleB
+    App -.->|createModuleA| ModuleA
+    App -.->|createModuleB| ModuleB
+    
+    %% 模块间接口调用
+    ModuleA_Impl -.->|通过IModuleB接口| IModuleB
+    ModuleB_Impl -.->|通过IModuleA接口| IModuleA
+    
+    %% 样式定义
+    classDef executable fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef dll fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef interface fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef header fill:#fff3e0,stroke:#e65100,stroke-width:1px
+    classDef implementation fill:#fce4ec,stroke:#880e4f,stroke-width:1px
+    
+    class App executable
+    class ModuleA,ModuleB dll
+    class Interface,IModuleA,IModuleB interface
+    class ModuleA_H,ModuleB_H header
+    class ModuleA_CPP,ModuleB_CPP,ModuleA_Impl,ModuleB_Impl implementation
+```
+
+## 关键关系说明
+编译时依赖（实线箭头）  
+- 主应用程序 → 接口层：包含接口头文件  
+- 模块A/B → 接口层：实现接口定义  
+- 模块内部：头文件和实现文件的包含关系  
+
+运行时依赖（虚线箭头）  
+- 主应用程序 → 模块A/B：通过LoadLibrary动态加载DLL  
+- 主应用程序 → 模块A/B：通过GetProcAddress获取工厂函数  
+- 模块间调用：通过接口进行互相调用，无直接依赖  
+
+接口隔离  
+- IModuleA 和 IModuleB 作为抽象接口  
+- 模块只依赖接口，不依赖具体实现  
+- 实现了解耦和循环依赖的解决  
+
+
+## Result
+```
+=== Module App Launch ===
+ModuleA initialized
+ModuleB initialized
+[ModuleA] set ModuleB
+[ModuleB] set ModuleA
+
+=== Test Begin ===
+ModuleA calling ModuleB
+ModuleB calling ModuleA
+[ModuleA] calculated: 10 + 20 = 30
+ModuleA Result: [MODULEB] TRANSFORMED: [MODULEA] PROCESSED: HELLO WORLD {CALC: 30}
+ModuleB calling ModuleA
+[ModuleA] calculated: 10 + 20 = 30
+ModuleB Result: [MODULEB] TRANSFORMED: TEST DATA {CALC: 30}
+[ModuleA] calculated: 5 + 3 = 8
+Calculate Result: 8
+[ModuleB] computed: 4 * 2.5 = 10
+Calculate Result: 10
+
+=== App Program Ends ===
+```
+
 # Single DLL
 ```
 DllDependencyTest/
