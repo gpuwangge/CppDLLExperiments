@@ -3,10 +3,15 @@
 #include <iostream>
 
 struct Pet : public IPet {
-    std::string name;
-    Pet(const std::string& n) : name(n) {}
-    void speak() override { std::cout << name << " says: woof!" << std::endl; }
+    Pet(const std::string& n);
+    ~Pet();
+
+    void speak() override;
     void playWith(IPerson* person) override;
+
+private:
+    struct Impl;   // 前向声明
+    Impl* pImpl;   // 指向实现的指针
 };
 
-extern "C" IPet* CreatePet(const char* name);
+extern "C" IPet* CreatePet(const char* name); //need this function so GetProcAddress() can get correct address

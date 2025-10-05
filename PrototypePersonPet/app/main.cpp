@@ -19,6 +19,7 @@ int main() {
     using CreatePersonFunc = IPerson*(*)(const char*, int);
     using CreatePetFunc = IPet*(*)(const char*);
 
+    //Grab create functions from Dlls
     auto CreatePerson = (CreatePersonFunc)GetProcAddress(personDLL, "CreatePerson"); //Windows.h
     auto CreatePet = (CreatePetFunc)GetProcAddress(petDLL, "CreatePet"); //Windows.h
 

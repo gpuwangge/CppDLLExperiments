@@ -35,10 +35,16 @@ project/
 │   └─ main.cpp
 │
 └─ CMakeLists.txt              # 顶层 CMake 文件
-
 ```
 关键词：动态加载dll/so隔离, pimpl隐藏细节, interface避免交叉依赖  
-代价：因为动态链接库涉及系统层面，需要windows.h或dlfcn.h的支持    
+dll/so：因为动态链接库涉及系统层面，需要windows.h或dlfcn.h的支持  
+interface: 单独的interface lib  
+pimpl: 头文件里用pimpl隐藏细节。本例因为用inteface隔离，所以对全局编译优化没影响。但如果dll内部有很多文件共享一个头文件，就有意义(换句话说，如果dll内部很小，pimpl就没啥意义)。这样修改之后，头文件变小，只含有公开方法和Impl指针；而cpp文件会变大。  
+
+注意：__declspec(dllexport) 确实是 Windows 上 导出 DLL 符号 的常见方法，但在这个例子里没有看到它。  
+在 MSVC 下，如果没写 __declspec(dllexport)，CreatePerson 默认不会被导出。  
+但在 MinGW/GCC 下，默认会把全局函数符号导出到 DLL。  
+所以你即使没写 __declspec(dllexport)，也能在 GetProcAddress 里拿到 CreatePerson。  
 
 
 # Interface DLL
