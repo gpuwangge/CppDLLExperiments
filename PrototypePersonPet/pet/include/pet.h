@@ -9,4 +9,4 @@ struct Pet : public IPet {
     void playWith(IPerson* person) override;
 };
 
-extern "C" IPet* CreatePet(const char* name); 
+extern "C" IPet* CreatePet(const char* name);

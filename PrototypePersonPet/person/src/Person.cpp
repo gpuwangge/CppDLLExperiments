@@ -7,5 +7,5 @@ void Person::playWith(IPet* pet) {
 }
 
 extern "C" IPerson* CreatePerson(const char* name, int age) {
-    return new Person(name, age); 
+    return new Person(name, age);
 }

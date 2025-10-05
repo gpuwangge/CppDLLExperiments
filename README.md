@@ -11,28 +11,34 @@ cmake -E time make -j
 ```
 project/
 │
-├─ interface/               # 公共接口
-│   ├─ CMakeLists.txt       # INTERFACE 库
-│   ├─ IPerson.h            # Person 接口
-│   └─ IPet.h               # Pet 接口
+├─ interface/                  # 公共接口库
+│   ├─ CMakeLists.txt          # INTERFACE 库
+│   ├─ IPerson.h               # Person 接口
+│   └─ IPet.h                  # Pet 接口
 │
-├─ person/                  # Person DLL
+├─ person/                     # Person DLL
 │   ├─ CMakeLists.txt
-│   ├─ Person.h
-│   └─ Person.cpp
+│   ├─ include/                # 头文件
+│   │   └─ Person.h
+│   └─ src/                    # 源文件
+│       └─ Person.cpp
 │
-├─ pet/                     # Pet DLL
+├─ pet/                        # Pet DLL
 │   ├─ CMakeLists.txt
-│   ├─ Pet.h
-│   └─ Pet.cpp
+│   ├─ include/                # 头文件
+│   │   └─ Pet.h
+│   └─ src/                    # 源文件
+│       └─ Pet.cpp
 │
-├─ app/                     # 客户端可执行程序
+├─ app/                        # 客户端可执行程序
 │   ├─ CMakeLists.txt
 │   └─ main.cpp
 │
-└─ CMakeLists.txt           # 顶层 CMake 文件
+└─ CMakeLists.txt              # 顶层 CMake 文件
+
 ```
-关键词：dll隔离, pimpl隐藏细节, interface避免交叉依赖  
+关键词：动态加载dll/so隔离, pimpl隐藏细节, interface避免交叉依赖  
+代价：因为动态链接库涉及系统层面，需要windows.h或dlfcn.h的支持    
 
 
 # Interface DLL
