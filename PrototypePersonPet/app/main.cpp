@@ -2,7 +2,6 @@
 #include "IPet.h"
 #include <windows.h>
 #include <iostream>
-#include <functional>
 
 int main() {
     HMODULE personDLL = LoadLibraryA("libperson.dll");
@@ -20,7 +19,7 @@ int main() {
 
     if(!CreatePerson || !CreatePet) { 
         std::cerr << "GetProcAddress failed!" << std::endl; 
-        return -1; 
+        return -1;
     }
 
     IPerson* p = CreatePerson("Alice", 30);

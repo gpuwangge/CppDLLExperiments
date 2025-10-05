@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
+
 struct IPerson;
 
 struct IPet {
-    virtual ~IPet() = default;
+    virtual ~IPet() {}
     virtual void speak() = 0;
     virtual void playWith(IPerson* person) = 0;
 };
