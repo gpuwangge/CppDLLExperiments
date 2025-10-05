@@ -16,5 +16,5 @@ void Person::greet() { pImpl->greet(); }
 void Person::playWith(IPet* pet) { pImpl->playWith(pet); }
 
 extern "C" __declspec(dllexport) IPerson* CreatePerson(const char* name, int age) {
-    return new Person(name, age);
+    return new Person(name, age); 
 }

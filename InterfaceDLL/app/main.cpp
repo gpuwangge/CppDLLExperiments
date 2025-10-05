@@ -16,7 +16,7 @@ int main() {
     // 加载DLLs
     HMODULE moduleADll = LoadLibraryA("module_a.dll");
     HMODULE moduleBDll = LoadLibraryA("module_b.dll");
-    
+     
     if (!moduleADll || !moduleBDll) {
         std::cerr << "Failed to load DLLs" << std::endl;
         return -1;

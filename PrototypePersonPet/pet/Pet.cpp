@@ -15,5 +15,5 @@ void Pet::speak() { pImpl->speak(); }
 void Pet::playWith(IPerson* person) { pImpl->playWith(person); }
 
 extern "C" __declspec(dllexport) IPet* CreatePet(const char* name) {
-    return new Pet(name);
+    return new Pet(name); 
 }

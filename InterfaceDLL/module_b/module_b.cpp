@@ -38,5 +38,5 @@ std::string ModuleBImpl::getName() const {
 
 // 工厂函数实现
 extern "C" MODULE_B_API std::shared_ptr<IModuleB> createModuleB() {
-    return std::make_shared<ModuleBImpl>();
+    return std::make_shared<ModuleBImpl>(); 
 }

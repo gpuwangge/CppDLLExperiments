@@ -12,3 +12,9 @@ target_link_libraries(module_a interface)
 if(WIN32)
     target_compile_definitions(module_a PRIVATE MODULE_A_EXPORTS)
 endif()
+
+# 编译完成后高亮输出
+add_custom_command(
+    TARGET module_a POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo ">>> Built module_a.dll <<<"
+)

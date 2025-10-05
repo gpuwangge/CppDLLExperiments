@@ -13,3 +13,10 @@ if(WIN32)
             $<TARGET_FILE_DIR:MyApp>
     )
 endif()
+
+
+# 编译完成后高亮输出
+add_custom_command(
+    TARGET MyApp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo ">>> Built MyApp.dll <<<"
+)

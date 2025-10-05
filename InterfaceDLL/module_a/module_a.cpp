@@ -15,7 +15,7 @@ std::string ModuleAImpl::processData(const std::string& data) {
         result = moduleB_->transformData(result);
     }
     
-    return result;
+    return result; 
 }
 
 int ModuleAImpl::calculate(int a, int b) {
