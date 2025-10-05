@@ -7,6 +7,34 @@ cmake -G "MinGW Makefiles" ..
 cmake -E time make -j
 ```
 
+# PrototypePersonPet
+```
+project/
+│
+├─ interface/               # 公共接口
+│   ├─ CMakeLists.txt       # INTERFACE 库
+│   ├─ IPerson.h            # Person 接口
+│   └─ IPet.h               # Pet 接口
+│
+├─ person/                  # Person DLL
+│   ├─ CMakeLists.txt
+│   ├─ Person.h
+│   └─ Person.cpp
+│
+├─ pet/                     # Pet DLL
+│   ├─ CMakeLists.txt
+│   ├─ Pet.h
+│   └─ Pet.cpp
+│
+├─ app/                     # 客户端可执行程序
+│   ├─ CMakeLists.txt
+│   └─ main.cpp
+│
+└─ CMakeLists.txt           # 顶层 CMake 文件
+```
+关键词：dll隔离, pimpl隐藏细节, interface避免交叉依赖  
+
+
 # Interface DLL
 ```
 MyApp/
