@@ -2,18 +2,22 @@
 #include "IPet.h"
 #include "ICommon.h"
 
-struct Pet : public IPet {
-    Pet(const std::string& n);
-    ~Pet();
+namespace animal{
 
-    void speak() override;
-    void playWith(IPerson* person) override;
+    struct Pet : public IPet {
+        Pet(const std::string& n);
+        ~Pet();
 
-    void setPerson(IPerson *person) override;
-    void playWithPerson() override;
-private:
-    struct Impl;   // 前向声明
-    std::unique_ptr<Impl> pImpl;
-};
+        void speak() override;
+        void playWith(human::IPerson* person) override;
 
-extern "C" IPet* CreatePet(const char* name); //need this function so GetProcAddress() can get correct address
+        void setPerson(human::IPerson *person) override;
+        void playWithPerson() override;
+    private:
+        struct Impl;   // 前向声明
+        std::unique_ptr<Impl> pImpl;
+    };
+
+    extern "C" IPet* CreatePet(const char* name); //need this function so GetProcAddress() can get correct address
+
+}

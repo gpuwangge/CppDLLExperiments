@@ -1,12 +1,18 @@
 #pragma once
 
-struct IPet;
+namespace animal{
+    struct IPet;
+}
 
-struct IPerson {
-    virtual ~IPerson() = default;
-    virtual void greet() = 0; 
-    virtual void playWith(IPet* pet) = 0;
+namespace human{
 
-    virtual void setPet(IPet *pet) = 0;
-    virtual void playWithPet() = 0;
-};
+    struct IPerson {
+        virtual ~IPerson() = default;
+        virtual void greet() = 0; 
+        virtual void playWith(animal::IPet* pet) = 0;
+
+        virtual void setPet(animal::IPet *pet) = 0;
+        virtual void playWithPet() = 0;
+    };
+
+}

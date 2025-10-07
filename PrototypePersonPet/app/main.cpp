@@ -16,8 +16,8 @@ int main() {
         return -1; 
     }
 
-    using CreatePersonFunc = IPerson*(*)(const char*, int);
-    using CreatePetFunc = IPet*(*)(const char*);
+    using CreatePersonFunc = human::IPerson*(*)(const char*, int);
+    using CreatePetFunc = animal::IPet*(*)(const char*);
 
     //Grab create functions from Dlls
     auto CreatePerson = (CreatePersonFunc)GetProcAddress(personDLL, "CreatePerson"); //Windows.h
@@ -29,22 +29,22 @@ int main() {
     }
 
 
-    IPerson* p = CreatePerson("Alice", 30);
-    IPet* pet = CreatePet("Buddy");
+    human::IPerson* person = CreatePerson("Alice", 30);
+    animal::IPet* pet = CreatePet("Buddy");
 
-    //p->greet();
+    //person->greet();
     //pet->speak();
 
-    p->playWith(pet);
-    pet->playWith(p);
+    person->playWith(pet);
+    pet->playWith(person);
 
-    p->setPet(pet);
-    p->playWithPet();
+    person->setPet(pet);
+    person->playWithPet();
 
-    pet->setPerson(p);
+    pet->setPerson(person);
     pet->playWithPerson();
 
-    delete p;
+    delete person;
     delete pet;
     FreeLibrary(personDLL); //Windows.h
     FreeLibrary(petDLL); //Windows.h
