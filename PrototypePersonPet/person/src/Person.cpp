@@ -1,10 +1,14 @@
 #include "Person.h"
 #include "IPet.h"
-#include "ICommon.h"
+
 
 struct Person::Impl {
     std::string name;
     int age;
+
+    ~Impl() {
+        std::cout << "Person's Impl destroyed: " << name << "\n";
+    }
     
     void greet() { std::cout << "Hello, I'm " << name << std::endl; }
     void playWith(IPet* pet) {
@@ -14,7 +18,7 @@ struct Person::Impl {
 };
 
 Person::Person(const char* name, int age) : pImpl(new Impl{name, age}) {}
-Person::~Person() { delete pImpl; }
+Person::~Person(){std::cout<<"Call Person's destructor"<<std::endl;}
 
 void Person::greet() { pImpl->greet(); }
 void Person::playWith(IPet* pet) { pImpl->playWith(pet); }

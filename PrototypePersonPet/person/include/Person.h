@@ -1,5 +1,6 @@
 #pragma once
 #include "IPerson.h"
+#include "ICommon.h"
 
 struct Person : public IPerson {
     Person(const char* name, int age);
@@ -9,7 +10,7 @@ struct Person : public IPerson {
     void playWith(IPet* pet) override;
 private:
     struct Impl;   // 前向声明
-    Impl* pImpl;   // 指向实现的指针
+    std::unique_ptr<Impl> pImpl;
 };
 //Note: 这里用Impl隔离了一层，用户只能调用Person的greet和playWith函数，Person再转发给Impl
 

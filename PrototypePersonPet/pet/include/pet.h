@@ -11,7 +11,7 @@ struct Pet : public IPet {
 
 private:
     struct Impl;   // 前向声明
-    Impl* pImpl;   // 指向实现的指针
+    std::unique_ptr<Impl> pImpl;
 };
 
 extern "C" IPet* CreatePet(const char* name); //need this function so GetProcAddress() can get correct address
