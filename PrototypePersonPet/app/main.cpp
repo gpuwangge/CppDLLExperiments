@@ -9,8 +9,8 @@
 #include <iostream>
 
 int main() {
-    HMODULE personDLL = LoadLibraryA("libperson.dll"); //Windows.h
-    HMODULE petDLL = LoadLibraryA("libpet.dll"); //Windows.h
+    HMODULE personDLL = LoadLibraryA("person.dll"); //Windows.h
+    HMODULE petDLL = LoadLibraryA("pet.dll"); //Windows.h
     if(!personDLL || !petDLL) { 
         std::cerr << "DLL load failed! Error code: " << GetLastError() << std::endl; //Windows.h
         return -1; 
@@ -27,6 +27,7 @@ int main() {
         std::cerr << "GetProcAddress failed!" << std::endl; 
         return -1;
     }
+
 
     IPerson* p = CreatePerson("Alice", 30);
     IPet* pet = CreatePet("Buddy");

@@ -1,6 +1,6 @@
 #pragma once
-#include "../interface/IPet.h"
-#include <iostream>
+#include "IPet.h"
+#include "ICommon.h"
 
 struct Pet : public IPet {
     Pet(const std::string& n);

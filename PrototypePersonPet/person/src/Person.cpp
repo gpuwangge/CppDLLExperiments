@@ -1,5 +1,6 @@
 #include "Person.h"
-#include "../interface/IPet.h"
+#include "IPet.h"
+#include "ICommon.h"
 
 struct Person::Impl {
     std::string name;

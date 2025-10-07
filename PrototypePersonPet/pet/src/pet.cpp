@@ -1,5 +1,5 @@
 #include "Pet.h"
-#include "../interface/IPerson.h"
+#include "IPerson.h"
 
 struct Pet::Impl {
     std::string name;

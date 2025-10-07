@@ -1,6 +1,5 @@
 #pragma once
-#include "../interface/IPerson.h"
-#include <iostream>
+#include "IPerson.h"
 
 struct Person : public IPerson {
     Person(const char* name, int age);
