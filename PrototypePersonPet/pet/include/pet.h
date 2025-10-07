@@ -9,6 +9,8 @@ struct Pet : public IPet {
     void speak() override;
     void playWith(IPerson* person) override;
 
+    void setPerson(IPerson *person) override;
+    void playWithPerson() override;
 private:
     struct Impl;   // 前向声明
     std::unique_ptr<Impl> pImpl;

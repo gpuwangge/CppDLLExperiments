@@ -32,11 +32,17 @@ int main() {
     IPerson* p = CreatePerson("Alice", 30);
     IPet* pet = CreatePet("Buddy");
 
-    p->greet();
-    pet->speak();
+    //p->greet();
+    //pet->speak();
 
     p->playWith(pet);
     pet->playWith(p);
+
+    p->setPet(pet);
+    p->playWithPet();
+
+    pet->setPerson(p);
+    pet->playWithPerson();
 
     delete p;
     delete pet;
