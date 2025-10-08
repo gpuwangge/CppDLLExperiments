@@ -1,5 +1,8 @@
 #include "IPerson.h"
 #include "IPet.h"
+#include "IFramework.h"
+
+//#include "../app_personPlay/PersonPlay.h"
 
 //If migrate to Linux, #include<dlfcn.h>
 //dlopen(), dlerror(), dlsym(), and suffix .so instead of .dll, void* indead of HMODULE
@@ -8,7 +11,26 @@
 
 #include <iostream>
 
+
+
+//extern framework::IApp* framework::createApp();
+
 int main() {
+    //std::cout<<"main"<<std::endl;
+    HMODULE frameworkDLL = LoadLibraryA("framework.dll"); //Windows.h
+    using CreateAppFunc = framework::IApp*(*)();
+    auto CreateApp =  (CreateAppFunc)GetProcAddress(frameworkDLL, "CreateApp");
+    framework::IApp* app = CreateApp();
+    app->run();
+    delete app;
+    FreeLibrary(frameworkDLL);
+
+    //CPersonPlay personPlay;
+
+    //framework::IApp* app = framework::createApp();
+
+
+    /*
     HMODULE personDLL = LoadLibraryA("person.dll"); //Windows.h
     HMODULE petDLL = LoadLibraryA("pet.dll"); //Windows.h
     if(!personDLL || !petDLL) { 
@@ -48,5 +70,8 @@ int main() {
     delete pet;
     FreeLibrary(personDLL); //Windows.h
     FreeLibrary(petDLL); //Windows.h
+
+    */
+
     return 0;
 }

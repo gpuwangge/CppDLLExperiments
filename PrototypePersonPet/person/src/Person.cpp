@@ -2,7 +2,6 @@
 #include "IPet.h"
 
 namespace human{
-
     struct Person::Impl {
         std::string name;
         int age;

@@ -2,7 +2,6 @@
 #include "IPerson.h"
 
 namespace animal{
-    
     struct Pet::Impl {
         std::string name;
         human::IPerson* person_;
@@ -36,5 +35,4 @@ namespace animal{
     extern "C" IPet* CreatePet(const char* name) {
         return new Pet(name);
     }
-
 }

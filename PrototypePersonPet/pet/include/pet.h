@@ -3,7 +3,6 @@
 #include "ICommon.h"
 
 namespace animal{
-
     struct Pet : public IPet {
         Pet(const std::string& n);
         ~Pet();
@@ -19,5 +18,4 @@ namespace animal{
     };
 
     extern "C" IPet* CreatePet(const char* name); //need this function so GetProcAddress() can get correct address
-
 }

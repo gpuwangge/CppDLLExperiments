@@ -1,8 +1,21 @@
 #pragma once
-#include "IPerson.h"
+//#include "IPerson.h"
 #include "ICommon.h"
+#include "IFramework.h"
 
-namespace human{
+namespace framework{
+    class CApp : public IApp{
+    public:
+        CApp();
+        ~CApp();
+
+        void run() override;
+        //virtual run();
+    };
+
+    extern "C" IApp* CreateApp();
+
+    /*
     struct Person : public IPerson {
         Person(const char* name, int age);
         ~Person();
@@ -20,5 +33,5 @@ namespace human{
 
     extern "C" IPerson* CreatePerson(const char* name, int age); //need this function so GetProcAddress() can get correct address
     //Note: 这是一个"工厂函数"，也叫"导出函数"，它是这个Person DLL唯一暴露给外面的函数。用户通过这个函数获得指针后，就可以调用其内部的成员函数了。
-
+    */
 }
