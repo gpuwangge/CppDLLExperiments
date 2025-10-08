@@ -6,7 +6,7 @@ namespace framework{
     Play2::~Play2(){}
 
     void Play2::run(){
-        std::cout<<"Play2::run()"<<std::endl; 
+        std::cout<<"Play2::run()"<<std::endl;
     }
 
 

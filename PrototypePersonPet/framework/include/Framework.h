@@ -10,7 +10,10 @@ namespace framework{
         ~CApp();
 
         void run() override;
-        //virtual run();
+
+        void setSampleName(std::string sampleName) override;
+    private:
+        std::string sampleName_ = "play1";
     };
 
     extern "C" IApp* CreateApp();

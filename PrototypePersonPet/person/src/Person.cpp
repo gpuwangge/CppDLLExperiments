@@ -8,7 +8,7 @@ namespace human{
         animal::IPet* pet_;
 
         ~Impl() {
-            std::cout << "Person's Impl destroyed: " << name << "\n";
+            std::cout << "Person's Impl destroyed: " << name << "\n"; 
         }
         
         void greet() { std::cout << "Hello, I'm " << name << std::endl; }

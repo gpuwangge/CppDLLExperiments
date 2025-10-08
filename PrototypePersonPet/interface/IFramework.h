@@ -1,4 +1,5 @@
 #pragma once
+#include "ICommon.h"
 
 namespace framework{
     class IApp {
@@ -8,6 +9,8 @@ namespace framework{
 
         virtual void run() = 0; //virtual function create vtable; in runtime, will check the table to execute function(dynamic dispatch)
         //if derived instance call, will run derived instance's function
+
+        virtual void setSampleName(std::string sampleName) = 0;
 
         //Notes:
         //virtual 普通函数	当你显式调用它（比如 obj->foo()）	实现运行时多态（调用正确版本）

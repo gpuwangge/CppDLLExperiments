@@ -15,17 +15,24 @@
 
 //extern framework::IApp* framework::createApp();
 
-int main() {
+int main(int argc, char* argv[]) {
+    // std::cout << "Number of args: " << argc << "\n";
+    // for (int i = 0; i < argc; ++i) {
+    //     std::cout << "Arg " << i << ": " << argv[i] << "\n";
+    // }
+
     //std::cout<<"main"<<std::endl;
     HMODULE frameworkDLL = LoadLibraryA("framework.dll"); //Windows.h
     using CreateAppFunc = framework::IApp*(*)();
     auto CreateApp =  (CreateAppFunc)GetProcAddress(frameworkDLL, "CreateApp");
     framework::IApp* app = CreateApp();
+    if(argc > 1) app->setSampleName(argv[1]);
     app->run();
+    
     delete app;
     FreeLibrary(frameworkDLL);
 
-    //CPersonPlay personPlay;
+    //CPersonPlay personPlay; 
 
     //framework::IApp* app = framework::createApp();
 
