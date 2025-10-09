@@ -1,21 +1,21 @@
-#include "Framework.h"
+#include "Core.h"
 #include <windows.h>
-#include "IPlay1.h"
-#include "IPlay2.h"
+#include "ICase001.h"
+#include "ICase002.h"
 
-namespace framework{
-    CApp::CApp(){}
-    CApp::~CApp(){}
+namespace LECore{
+    Application::Application(){}
+    Application::~Application(){}
 
-    void CApp::run(){
-        std::cout<<"framework::run(): sampleName="<<sampleName_<<std::endl;
+    void Application::Run(){
+        std::cout<<"framework::run(): caseName = "<<caseName_<<std::endl;
 
         //TODO:不希望在工厂函数的签名里写具体接口类型 IPlay1*，而希望完全动态生成（类似 void*），然后在客户端通过类型转换再使用。 这种做法在插件 / DLL 系统里非常常见，核心思路是 工厂函数返回 void*，客户端自己 cast
-        std::string sampleNameDLL = sampleName_ + ".dll";
+        std::string sampleNameDLL = caseName_ + ".dll";
         HMODULE sampleDLL = LoadLibraryA(sampleNameDLL.c_str()); //Windows.h
-        using CreateSampleFunc = framework::IPlay1*(*)();
-        auto CreateIPlay1 =  (CreateSampleFunc)GetProcAddress(sampleDLL, "CreateIPlay1");
-        framework::IPlay1* sample = CreateIPlay1();
+        using CreateSampleFunc = LECase::ICase001*(*)();
+        auto CreateIPlay1 =  (CreateSampleFunc)GetProcAddress(sampleDLL, "CreateICase001");
+        LECase::ICase001* sample = CreateIPlay1();
         sample->run();
         delete sample;
         FreeLibrary(sampleDLL);
@@ -37,12 +37,12 @@ namespace framework{
         // FreeLibrary(play2DLL);
     }
 
-    void CApp::setSampleName(std::string sampleName){
-        sampleName_ = sampleName;
+    void Application::SetSampleName(std::string caseName){
+        caseName_ = caseName;
     }
 
-    extern "C" IApp* CreateApp(){
-        return new CApp();
+    extern "C" IApplication* CreateApp(){
+        return new Application();
     }
 
 }

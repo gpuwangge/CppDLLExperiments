@@ -1,6 +1,6 @@
 #include "IPerson.h"
 #include "IPet.h"
-#include "IFramework.h"
+#include "ICore.h"
 
 //#include "../app_personPlay/PersonPlay.h"
 
@@ -22,12 +22,12 @@ int main(int argc, char* argv[]) {
     // }
 
     //std::cout<<"main"<<std::endl;
-    HMODULE frameworkDLL = LoadLibraryA("framework.dll"); //Windows.h
-    using CreateAppFunc = framework::IApp*(*)();
+    HMODULE frameworkDLL = LoadLibraryA("core.dll"); //Windows.h
+    using CreateAppFunc = LECore::IApplication*(*)();
     auto CreateApp =  (CreateAppFunc)GetProcAddress(frameworkDLL, "CreateApp");
-    framework::IApp* app = CreateApp();
-    if(argc > 1) app->setSampleName(argv[1]);
-    app->run();
+    LECore::IApplication* app = CreateApp();
+    if(argc > 1) app->SetSampleName(argv[1]);
+    app->Run();
     
     delete app;
     FreeLibrary(frameworkDLL);

@@ -1,22 +1,22 @@
 #pragma once
 //#include "IPerson.h"
 #include "ICommon.h"
-#include "IFramework.h"
+#include "ICore.h"
 
-namespace framework{
-    class CApp : public IApp{
+namespace LECore{
+    class Application : public IApplication{
     public:
-        CApp();
-        ~CApp();
+        Application();
+        ~Application();
 
-        void run() override;
+        void Run() override;
 
-        void setSampleName(std::string sampleName) override;
+        void SetSampleName(std::string sampleName) override;
     private:
-        std::string sampleName_ = "play1";
+        std::string caseName_ = "case001";
     };
 
-    extern "C" IApp* CreateApp();
+    extern "C" IApplication* CreateApp();
 
     /*
     struct Person : public IPerson {
