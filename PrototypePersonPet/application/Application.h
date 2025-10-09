@@ -1,22 +1,35 @@
 #pragma once
-//#include "IPerson.h"
+#include <windows.h>
 #include "ICommon.h"
-#include "ICore.h"
+#include "IApplication.h"
+#include "IPerson.h"
+#include "IPet.h"
 
-namespace LECore{
+
+namespace LEApplication{
     class Application : public IApplication{
     public:
         Application();
         ~Application();
+        
+        void Shutdown();
 
-        void Run() override;
+        void Run(std::string caseName) override;
 
-        void SetSampleName(std::string sampleName) override;
+        void LoadPerson();
+        void LoadPet();
+
+        //void SetCaseName(std::string sampleName) override;
     private:
-        std::string caseName_ = "case001";
+        //std::string caseName_ = "case001";
+        HMODULE dll_person;
+        human::IPerson *p_person = NULL;
+        HMODULE dll_pet;
+        animal::IPet *p_pet = NULL;
     };
 
-    extern "C" IApplication* CreateApp();
+    extern "C" void* CreateInstance();
+    extern "C" void DestroyInstance(void *p);
 
     /*
     struct Person : public IPerson {

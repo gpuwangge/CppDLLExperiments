@@ -17,5 +17,7 @@ namespace animal{
         std::unique_ptr<Impl> pImpl;
     };
 
-    extern "C" IPet* CreatePet(const char* name); //need this function so GetProcAddress() can get correct address
+    //extern "C" IPet* CreatePet(const char* name); //need this function so GetProcAddress() can get correct address
+    extern "C" void* CreateInstance(const char* name);
+    extern "C" void DestroyInstance(void *p);
 }

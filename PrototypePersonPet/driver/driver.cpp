@@ -1,8 +1,6 @@
 #include "IPerson.h"
 #include "IPet.h"
-#include "ICore.h"
-
-//#include "../app_personPlay/PersonPlay.h"
+#include "IApplication.h"
 
 //If migrate to Linux, #include<dlfcn.h>
 //dlopen(), dlerror(), dlsym(), and suffix .so instead of .dll, void* indead of HMODULE
@@ -12,30 +10,46 @@
 #include <iostream>
 
 
-
-//extern framework::IApp* framework::createApp();
-
 int main(int argc, char* argv[]) {
     // std::cout << "Number of args: " << argc << "\n";
     // for (int i = 0; i < argc; ++i) {
     //     std::cout << "Arg " << i << ": " << argv[i] << "\n";
     // }
 
-    //std::cout<<"main"<<std::endl;
-    HMODULE frameworkDLL = LoadLibraryA("core.dll"); //Windows.h
-    using CreateAppFunc = LECore::IApplication*(*)();
-    auto CreateApp =  (CreateAppFunc)GetProcAddress(frameworkDLL, "CreateApp");
-    LECore::IApplication* app = CreateApp();
-    if(argc > 1) app->SetSampleName(argv[1]);
-    app->Run();
+
+    HMODULE dll = LoadLibraryA("core.dll"); //Windows.h
+    if(!dll) { 
+        std::cerr << "DLL load failed! Core Name = core.dll" << std::endl; //Windows.h
+        return -1; 
+    }
+
+    using CreateAppFunc = LEApplication::IApplication*(*)();
+    auto CreateInstance =  (CreateAppFunc)GetProcAddress(dll, "CreateInstance");
+    if(!CreateInstance) { 
+        std::cerr << "GetProcAddress failed! (CreateInstance)" << std::endl;
+        FreeLibrary(dll);
+        return -1;
+    }
+    using DestroyAppFunc = void(*)(void*);
+    auto DestroyInstance =  (DestroyAppFunc)GetProcAddress(dll, "DestroyInstance");
+    if(!DestroyInstance) { 
+        std::cerr << "GetProcAddress failed! (DestroyInstance)" << std::endl;
+        FreeLibrary(dll);
+        return -1;
+    }
+
+    LEApplication::IApplication* p = (LEApplication::IApplication*)CreateInstance();
+    try {
+        if(argc > 1) p->Run(argv[1]);
+        else p->Run();
+    } catch (const std::exception& e) {
+        std::cerr << "Exception in Application::Run(): " << e.what() << std::endl;
+    } catch (...) {
+        std::cerr << "Unknown exception in Application::Run()" << std::endl;
+    }
     
-    delete app;
-    FreeLibrary(frameworkDLL);
-
-    //CPersonPlay personPlay; 
-
-    //framework::IApp* app = framework::createApp();
-
+    DestroyInstance(p);
+    FreeLibrary(dll);
 
     /*
     HMODULE personDLL = LoadLibraryA("person.dll"); //Windows.h

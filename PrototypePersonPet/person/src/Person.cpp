@@ -33,8 +33,10 @@ namespace human{
     void Person::setPet(animal::IPet* pet){ pImpl->setPet(pet);}
     void Person::playWithPet(){pImpl->playWithPet();}
 
-    extern "C" IPerson* CreatePerson(const char* name, int age) {
-        return new Person(name, age);
-    }
+    // extern "C" IPerson* CreatePerson(const char* name, int age) {
+    //     return new Person(name, age);
+    // }
+    extern "C" void* CreateInstance(const char* name, int age){ return new Person(name, age); };
+    extern "C" void DestroyInstance(void *p){ if(p) delete static_cast<Person*>(p); }
 
 }
