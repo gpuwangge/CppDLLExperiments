@@ -17,9 +17,9 @@ int main(int argc, char* argv[]) {
     // }
 
 
-    HMODULE dll = LoadLibraryA("core.dll"); //Windows.h
+    HMODULE dll = LoadLibraryA("application.dll"); //Windows.h
     if(!dll) { 
-        std::cerr << "DLL load failed! Core Name = core.dll" << std::endl; //Windows.h
+        std::cerr << "DLL load failed! DLL Name = application.dll" << std::endl; //Windows.h
         return -1; 
     }
 

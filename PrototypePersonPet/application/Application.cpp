@@ -83,6 +83,14 @@ namespace LEApplication{
 
         LoadPerson();
         LoadPet();
+
+        p_person->playWith(p_pet);
+        p_person->setPet(p_pet);
+        p_person->playWithPet();
+
+        p_pet->playWith(p_person);
+        p_pet->setPerson(p_person);
+        p_pet->playWithPerson();
     }
 
     void Application::LoadPerson(){

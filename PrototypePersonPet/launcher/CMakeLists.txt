@@ -1,18 +1,18 @@
-project(luminerror)
+project(launcher)
 
 file(GLOB CORE_SOURCES "*.cpp")
 file(GLOB CORE_HEADERS "*.h")
 
-add_executable(luminerror ${CORE_SOURCES} ${CORE_HEADERS})
+add_executable(${PROJECT_NAME} ${CORE_SOURCES} ${CORE_HEADERS})
 
 #add_executable(framework-app
     #main.cpp)
     #../app_personPlay/PersonPlay.cpp)
-target_include_directories(luminerror PRIVATE ${CMAKE_SOURCE_DIR}/interface)
-target_link_libraries(luminerror PRIVATE interface)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/interface)
+target_link_libraries(${PROJECT_NAME} PRIVATE interface)
 
-add_custom_command(TARGET luminerror POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E echo ">>>>>>>>>>>>>>>>>> Linked luminerror.exe <<<<<<<<<<<<<<<<<<"
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo ">>>>>>>>>>>>>>>>>> Linked ${PROJECT_NAME}.exe <<<<<<<<<<<<<<<<<<"
 )
 
 

@@ -8,33 +8,56 @@ cmake -E time make -j
 ```
 
 # PrototypePersonPet
+tree -I 'bin|build'  
 ```
-project/
+│  CMakeLists.txt
 │
-├─ interface/                  # 公共接口库
-│   ├─ CMakeLists.txt          # INTERFACE 库
-│   ├─ IPerson.h               # Person 接口
-│   └─ IPet.h                  # Pet 接口
+├─application
+│      Application.cpp
+│      Application.h
+│      CMakeLists.txt
+├─case
+│  │  CMakeLists.txt
+│  │
+│  ├─case001
+│  │      case001.cpp
+│  │
+│  └─case002
+│          case002.cpp
 │
-├─ person/                     # Person DLL
-│   ├─ CMakeLists.txt
-│   ├─ include/                # 头文件
-│   │   └─ Person.h
-│   └─ src/                    # 源文件
-│       └─ Person.cpp
+├─interface
+│  │  CMakeLists.txt
+│  │  IApplication.h
+│  │  ICase.h
+│  │  ICommon.h
+│  │  IPerson.h
+│  │  IPet.h
+│  │
+│  └─Case
+│          ICase001.h
+│          ICase002.h
 │
-├─ pet/                        # Pet DLL
-│   ├─ CMakeLists.txt
-│   ├─ include/                # 头文件
-│   │   └─ Pet.h
-│   └─ src/                    # 源文件
-│       └─ Pet.cpp
+├─launcher
+│      CMakeLists.txt
+│      launcher.cpp
 │
-├─ app/                        # 客户端可执行程序
-│   ├─ CMakeLists.txt
-│   └─ main.cpp
+├─person
+│  │  CMakeLists.txt
+│  │
+│  ├─include
+│  │      Person.h
+│  │
+│  └─src
+│          Person.cpp
 │
-└─ CMakeLists.txt              # 顶层 CMake 文件
+└─pet
+    │  CMakeLists.txt
+    │
+    ├─include
+    │      pet.h
+    │
+    └─src
+            pet.cpp
 ```
 关键词：动态加载dll/so隔离, pimpl隐藏细节, interface避免交叉依赖  
 dll/so：因为动态链接库涉及系统层面，需要windows.h或dlfcn.h的支持  
