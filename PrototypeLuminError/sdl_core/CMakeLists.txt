@@ -1,7 +1,7 @@
-project(application)
+project(sdlcore)
 
-file(GLOB SOURCES "*.cpp")
-file(GLOB HEADERS "*.h")
+file(GLOB SOURCES "src/*.cpp")
+file(GLOB HEADERS "include/*.h")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 
@@ -15,6 +15,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/in
 target_link_libraries(${PROJECT_NAME} leinterface)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    #COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:person> ../app/$<CONFIGURATION>/
     COMMAND ${CMAKE_COMMAND} -E echo ">>>>>>>>>>>>>>>>>> Linked ${PROJECT_NAME}.dll <<<<<<<<<<<<<<<<<<"
 )

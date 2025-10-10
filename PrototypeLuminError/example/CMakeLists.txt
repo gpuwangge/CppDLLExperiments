@@ -11,8 +11,8 @@ function(add_example EXAMPLENAME)
         PREFIX ""
     )
 
-    target_include_directories(${EXAMPLENAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    target_link_libraries(${EXAMPLENAME} interface)
+    #target_include_directories(${EXAMPLENAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+    target_link_libraries(${EXAMPLENAME} leinterface)
 
     add_custom_command(TARGET ${EXAMPLENAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E echo ">>>>>>>>>>>>>>>>>> Linked ${DLLEXAMPLENAMENAME}.dll <<<<<<<<<<<<<<<<<<"

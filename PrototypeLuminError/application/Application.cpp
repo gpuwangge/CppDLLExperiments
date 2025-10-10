@@ -8,10 +8,10 @@ namespace LEApplication{
             FreeLibrary(dll_person);
             dll_person = nullptr;
         }
-        if (dll_pet) {
-            FreeLibrary(dll_pet);
-            dll_pet = nullptr;
-        }
+        // if (dll_pet) {
+        //     FreeLibrary(dll_pet);
+        //     dll_pet = nullptr;
+        // }
     }
 
     void Application::Shutdown(){
@@ -28,18 +28,18 @@ namespace LEApplication{
             DestroyInstance_Plugin(p_person);
             p_person = nullptr;
         }
-        if (p_pet) {
-            using DestroyInstanceFunc = void(*)(void*);
-            auto DestroyInstance_Plugin =  (DestroyInstanceFunc)GetProcAddress(dll_pet, "DestroyInstance");
-            if(!DestroyInstance_Plugin) { 
-                std::cerr << "GetProcAddress failed! (DestroyInstance_Plugin)" << std::endl;
-                FreeLibrary(dll_pet);
-                return;
-            }
+        // if (p_pet) {
+        //     using DestroyInstanceFunc = void(*)(void*);
+        //     auto DestroyInstance_Plugin =  (DestroyInstanceFunc)GetProcAddress(dll_pet, "DestroyInstance");
+        //     if(!DestroyInstance_Plugin) { 
+        //         std::cerr << "GetProcAddress failed! (DestroyInstance_Plugin)" << std::endl;
+        //         FreeLibrary(dll_pet);
+        //         return;
+        //     }
 
-            DestroyInstance_Plugin(p_pet);
-            p_pet = nullptr;
-        }
+        //     DestroyInstance_Plugin(p_pet);
+        //     p_pet = nullptr;
+        // }
     }
 
     void Application::Run(std::string exampleName){
@@ -80,21 +80,21 @@ namespace LEApplication{
         FreeLibrary(dll);
 
         LoadPerson();
-        LoadPet();
+        //LoadPet();
 
-        p_person->playWith(p_pet);
-        p_person->setPet(p_pet);
-        p_person->playWithPet();
+        // p_person->playWith(p_pet);
+        // p_person->setPet(p_pet);
+        // p_person->playWithPet();
 
-        p_pet->playWith(p_person);
-        p_pet->setPerson(p_person);
-        p_pet->playWithPerson();
+        // p_pet->playWith(p_person);
+        // p_pet->setPerson(p_person);
+        // p_pet->playWithPerson();
     }
 
     void Application::LoadPerson(){
-        dll_person = LoadLibraryA("person.dll"); 
+        dll_person = LoadLibraryA("sdlcore.dll"); 
         if(!dll_person) { 
-            std::cerr << "DLL load failed! Plugin Name = " << "person.dll" << std::endl; 
+            std::cerr << "DLL load failed! Plugin Name = " << "sdlcore.dll" << std::endl; 
             return; 
         }
 
@@ -111,24 +111,24 @@ namespace LEApplication{
 
     }
 
-    void Application::LoadPet(){
-        dll_pet = LoadLibraryA("pet.dll"); 
-        if(!dll_pet) { 
-            std::cerr << "DLL load failed! Plugin Name = " << "pet.dll" << std::endl; 
-            return; 
-        }
+    // void Application::LoadPet(){
+    //     dll_pet = LoadLibraryA("pet.dll"); 
+    //     if(!dll_pet) { 
+    //         std::cerr << "DLL load failed! Plugin Name = " << "pet.dll" << std::endl; 
+    //         return; 
+    //     }
 
-        using CreateInstanceFunc = void*(*)(const char*);
-        auto CreateInstance_Plugin =  (CreateInstanceFunc)GetProcAddress(dll_pet, "CreateInstance");
-        if(!CreateInstance_Plugin) { 
-            std::cerr << "GetProcAddress failed! (CreateInstance_Plugin)" << std::endl;
-            FreeLibrary(dll_pet);
-            return;
-        }
+    //     using CreateInstanceFunc = void*(*)(const char*);
+    //     auto CreateInstance_Plugin =  (CreateInstanceFunc)GetProcAddress(dll_pet, "CreateInstance");
+    //     if(!CreateInstance_Plugin) { 
+    //         std::cerr << "GetProcAddress failed! (CreateInstance_Plugin)" << std::endl;
+    //         FreeLibrary(dll_pet);
+    //         return;
+    //     }
         
-        p_pet = static_cast<animal::IPet*>(CreateInstance_Plugin("Buddy"));
-        p_pet->speak(); //test p_pet
-    }
+    //     p_pet = static_cast<animal::IPet*>(CreateInstance_Plugin("Buddy"));
+    //     p_pet->speak(); //test p_pet
+    // }
 
     // void Application::SetCaseName(std::string caseName){
     //     caseName_ = caseName;

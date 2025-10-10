@@ -8,55 +8,59 @@ cmake -E time make -j
 ```
 
 # PrototypePersonPet
-tree -I 'bin|build'  
+Linux: tree -I 'bin|build'  
+Windows: tree /F /A > tree.txt  
 ```
-│  CMakeLists.txt
-│
-├─application
-│      Application.cpp
-│      Application.h
-│      CMakeLists.txt
-├─case
-│  │  CMakeLists.txt
-│  │
-│  ├─case001
-│  │      case001.cpp
-│  │
-│  └─case002
-│          case002.cpp
-│
-├─interface
-│  │  CMakeLists.txt
-│  │  IApplication.h
-│  │  ICase.h
-│  │  ICommon.h
-│  │  IPerson.h
-│  │  IPet.h
-│  │
-│  └─Case
-│          ICase001.h
-│          ICase002.h
-│
-├─launcher
-│      CMakeLists.txt
-│      launcher.cpp
-│
-├─person
-│  │  CMakeLists.txt
-│  │
-│  ├─include
-│  │      Person.h
-│  │
-│  └─src
-│          Person.cpp
-│
-└─pet
-    │  CMakeLists.txt
-    │
-    ├─include
-    │      pet.h
-    │
-    └─src
+E:.
+|   CMakeLists.txt
+|   tree.txt
+|   
++---application
+|       Application.cpp
+|       Application.h
+|       CMakeLists.txt
+|       
++---example
+|   |   CMakeLists.txt
+|   |   
+|   +---example001
+|   |       example001.cpp
+|   |       
+|   \---example002
+|           example002.cpp
+|           
++---interface
+|   |   CMakeLists.txt
+|   |   IApplication.h
+|   |   ICommon.h
+|   |   IExample.h
+|   |   IPerson.h
+|   |   IPet.h
+|   |   
+|   \---iexample
+|           IExample001.h
+|           IExample002.h
+|           
++---launcher
+|       CMakeLists.txt
+|       launcher.cpp
+|       
++---person
+|   |   CMakeLists.txt
+|   |   
+|   +---include
+|   |       Person.h
+|   |       
+|   \---src
+|           Person.cpp
+|           
+\---pet
+    |   CMakeLists.txt
+    |   
+    +---include
+    |       pet.h
+    |       
+    \---src
             pet.cpp
 ```
 关键词：动态加载dll/so隔离, pimpl隐藏细节, interface避免交叉依赖  

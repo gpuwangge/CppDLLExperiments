@@ -8,8 +8,8 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 #add_executable(framework-app
     #main.cpp)
     #../app_personPlay/PersonPlay.cpp)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/interface)
-target_link_libraries(${PROJECT_NAME} PRIVATE interface)
+#target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/interface)
+target_link_libraries(${PROJECT_NAME} PRIVATE leinterface)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E echo ">>>>>>>>>>>>>>>>>> Linked ${PROJECT_NAME}.exe <<<<<<<<<<<<<<<<<<"

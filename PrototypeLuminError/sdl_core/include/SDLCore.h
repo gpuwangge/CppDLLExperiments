@@ -1,5 +1,5 @@
 #pragma once
-#include "IPerson.h"
+#include "ISDLCore.h"
 #include "ICommon.h"
 
 namespace human{
@@ -8,10 +8,10 @@ namespace human{
         ~Person();
 
         void greet() override;
-        void playWith(animal::IPet* pet) override;
+        // void playWith(animal::IPet* pet) override;
 
-        void setPet(animal::IPet *pet) override;
-        void playWithPet() override;
+        // void setPet(animal::IPet *pet) override;
+        // void playWithPet() override;
     private:
         struct Impl;   // 前向声明
         std::unique_ptr<Impl> pImpl;

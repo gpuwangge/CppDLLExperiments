@@ -9,7 +9,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_subdirectory(interface)
 add_subdirectory(application)
-add_subdirectory(person)
-add_subdirectory(pet)
+add_subdirectory(sdl_core)
 add_subdirectory(example)
 add_subdirectory(launcher)

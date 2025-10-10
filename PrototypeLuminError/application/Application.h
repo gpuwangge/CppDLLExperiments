@@ -2,8 +2,7 @@
 #include <windows.h>
 #include "ICommon.h"
 #include "IApplication.h"
-#include "IPerson.h"
-#include "IPet.h"
+#include "ISDLCore.h"
 
 
 namespace LEApplication{
@@ -24,8 +23,8 @@ namespace LEApplication{
         //std::string caseName_ = "case001";
         HMODULE dll_person;
         human::IPerson *p_person = NULL;
-        HMODULE dll_pet;
-        animal::IPet *p_pet = NULL;
+        //HMODULE dll_pet;
+        //animal::IPet *p_pet = NULL;
     };
 
     extern "C" void* CreateInstance();
