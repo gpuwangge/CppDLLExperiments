@@ -14,7 +14,7 @@ namespace LEApplication{
         
         void Shutdown();
 
-        void Run(std::string caseName) override;
+        void Run(std::string exampleName) override;
 
         void LoadPerson();
         void LoadPet();

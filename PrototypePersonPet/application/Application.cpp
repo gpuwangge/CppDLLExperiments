@@ -42,33 +42,31 @@ namespace LEApplication{
         }
     }
 
-    void Application::Run(std::string caseName){
-        //std::cout<<"Application::Run(): Case Name = "<<caseName_<<std::endl;
-
-        std::string caseNameDLL = caseName + ".dll";
-        HMODULE dll = LoadLibraryA(caseNameDLL.c_str()); //Windows.h
+    void Application::Run(std::string exampleName){
+        std::string exampleDLL = exampleName + ".dll";
+        HMODULE dll = LoadLibraryA(exampleDLL.c_str()); //Windows.h
         if(!dll) { 
-            std::cerr << "DLL load failed! Case Name = " << caseName << std::endl; //Windows.h
+            std::cerr << "DLL load failed! Example Name = " << exampleName << std::endl; //Windows.h
             return; 
         }
 
         using CreateInstanceFunc = void*(*)();
-        auto CreateInstance_Case =  (CreateInstanceFunc)GetProcAddress(dll, "CreateInstance");
-        if(!CreateInstance_Case) { 
+        auto CreateInstance_example =  (CreateInstanceFunc)GetProcAddress(dll, "CreateInstance");
+        if(!CreateInstance_example) { 
             std::cerr << "GetProcAddress failed! (CreateInstance)" << std::endl;
             FreeLibrary(dll);
             return;
         }
         using DestroyInstanceFunc = void(*)(void*);
-        auto DestroyInstance_Case =  (DestroyInstanceFunc)GetProcAddress(dll, "DestroyInstance");
-        if(!DestroyInstance_Case) { 
+        auto DestroyInstance_example =  (DestroyInstanceFunc)GetProcAddress(dll, "DestroyInstance");
+        if(!DestroyInstance_example) { 
             std::cerr << "GetProcAddress failed! (DestroyInstance)" << std::endl;
             FreeLibrary(dll);
             return;
         }
 
-        void* p_void = CreateInstance_Case();
-        LECase::ICase *p = static_cast<LECase::ICase*>(p_void);
+        void* p_void = CreateInstance_example();
+        LEExample::IExample *p = static_cast<LEExample::IExample*>(p_void);
 
         try {
             p->Update();
@@ -78,7 +76,7 @@ namespace LEApplication{
             std::cerr << "Unknown exception in DLL Update()." << std::endl;
         }
 
-        DestroyInstance_Case(p);
+        DestroyInstance_example(p);
         FreeLibrary(dll);
 
         LoadPerson();
@@ -96,7 +94,7 @@ namespace LEApplication{
     void Application::LoadPerson(){
         dll_person = LoadLibraryA("person.dll"); 
         if(!dll_person) { 
-            std::cerr << "DLL load failed! Case Name = " << "person.dll" << std::endl; 
+            std::cerr << "DLL load failed! Plugin Name = " << "person.dll" << std::endl; 
             return; 
         }
 
@@ -116,7 +114,7 @@ namespace LEApplication{
     void Application::LoadPet(){
         dll_pet = LoadLibraryA("pet.dll"); 
         if(!dll_pet) { 
-            std::cerr << "DLL load failed! Case Name = " << "pet.dll" << std::endl; 
+            std::cerr << "DLL load failed! Plugin Name = " << "pet.dll" << std::endl; 
             return; 
         }
 

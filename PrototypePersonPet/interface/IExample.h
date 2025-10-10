@@ -1,10 +1,10 @@
 #pragma once
 #include "ICommon.h"
 
-namespace LECase{
-    class ICase{
+namespace LEExample{
+    class IExample{
     public:
-        virtual ~ICase() = default;
+        virtual ~IExample() = default;
         virtual void Update() = 0;
     };
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "ICommon.h"
-#include "ICase.h"
+#include "IExample.h"
 
 namespace LEApplication{
     class IApplication {
@@ -8,7 +8,7 @@ namespace LEApplication{
         virtual ~IApplication() = default;
         //when ~function is set to virtual, a chain of functions in vtable will be called
 
-        virtual void Run(std::string caseName = "case001") = 0; //virtual function create vtable; in runtime, will check the table to execute function(dynamic dispatch)
+        virtual void Run(std::string exampleName = "example001") = 0; //virtual function create vtable; in runtime, will check the table to execute function(dynamic dispatch)
         //if derived instance call, will run derived instance's function
 
         //virtual void SetCaseName(std::string caseName) = 0;

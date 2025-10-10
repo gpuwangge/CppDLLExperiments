@@ -1,9 +1,9 @@
 project(launcher)
 
-file(GLOB CORE_SOURCES "*.cpp")
-file(GLOB CORE_HEADERS "*.h")
+file(GLOB SOURCES "*.cpp")
+file(GLOB HEADERS "*.h")
 
-add_executable(${PROJECT_NAME} ${CORE_SOURCES} ${CORE_HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 #add_executable(framework-app
     #main.cpp)

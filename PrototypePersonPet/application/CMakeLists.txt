@@ -1,9 +1,9 @@
 project(application)
 
-file(GLOB CORE_SOURCES "*.cpp")
-file(GLOB CORE_HEADERS "*.h")
+file(GLOB SOURCES "*.cpp")
+file(GLOB HEADERS "*.h")
 
-add_library(${PROJECT_NAME} SHARED ${CORE_SOURCES} ${CORE_HEADERS})
+add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 
 # set lib name, remove prefix
 set_target_properties(${PROJECT_NAME} PROPERTIES
